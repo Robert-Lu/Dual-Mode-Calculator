@@ -66,7 +66,7 @@ void StandardControlPanel::ConfigButtons()
         auto &button = setting.first;
         const auto &icon_name = setting.second;
         button->setIcon(QIcon(":/DualModeCalculator/" + icon_name));
-        button->setIconSize({ 75, 35 });
+        button->setIconSize({ 80, 40 });
     }
 }
 
@@ -210,9 +210,7 @@ void StandardControlPanel::UniaryOperatorInputHandler(const StdAction act)
         default:
             break;
         }
-        show_last = true;
         ExtractDigitsNumber();
-        ConfirmNumber();
     }
 
     to_zeroize = true;
