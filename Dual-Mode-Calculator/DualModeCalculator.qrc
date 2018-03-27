@@ -1,13 +1,15 @@
 <RCC>
     <qresource prefix="/DualModeCalculator">
         <file alias="sqrt">Resources/images/sqrt.png</file>
-        <file alias="percent">Resources/images/percent.png</file>
         <file alias="sqr">Resources/images/sqr.png</file>
-        <file alias="rep">Resources/images/rep.png</file>
         <file alias="div">Resources/images/div.png</file>
         <file alias="mul">Resources/images/mul.png</file>
         <file alias="minus">Resources/images/minus.png</file>
         <file alias="plus">Resources/images/plus.png</file>
         <file alias="sign">Resources/images/sign.png</file>
+        <file alias="percent">Resources/images/percent.png</file>
+        <file alias="rep">Resources/images/rep.png</file>
+        <file alias="backspace">Resources/images/backspace.png</file>
+        <file alias="enter">Resources/images/enter.png</file>
     </qresource>
 </RCC>

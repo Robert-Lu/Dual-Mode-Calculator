@@ -16,6 +16,7 @@ DualModeCalculator::DualModeCalculator(QWidget *parent)
         "   background: #C0C0BF;\n"
         "}\n"
         "QToolButton {\n"
+        "   font: 32px bond;\n"
         "   border-style: none;\n"
         "   border-radius: 4px;\n"
         "   background-color: #E0E0E0;\n"
@@ -54,6 +55,72 @@ void DualModeCalculator::resizeEvent(QResizeEvent * event)
     AdjustFontSize();
 }
 
+void DualModeCalculator::keyPressEvent(QKeyEvent* event)
+{
+    // Get event modifiers key
+    const Qt::KeyboardModifiers modifiers = event->modifiers();
+
+    if (mode == StandardMode)
+    {
+        if ((event->key() == Qt::Key_0) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_0);
+        }
+        else if ((event->key() == Qt::Key_1) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_1);
+        }
+        else if ((event->key() == Qt::Key_1) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_1);
+        }
+        else if ((event->key() == Qt::Key_2) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_2);
+        }
+        else if ((event->key() == Qt::Key_3) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_3);
+        }
+        else if ((event->key() == Qt::Key_4) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_4);
+        }
+        else if ((event->key() == Qt::Key_5) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_5);
+        }
+        else if ((event->key() == Qt::Key_6) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_6);
+        }
+        else if ((event->key() == Qt::Key_7) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_7);
+        }
+        else if ((event->key() == Qt::Key_8) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_8);
+        }
+        else if ((event->key() == Qt::Key_9) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_9);
+        }
+        else if ((event->key() == Qt::Key_Plus) && (modifiers == Qt::ShiftModifier)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Plus);
+        }
+        else if ((event->key() == Qt::Key_Minus) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Minus);
+        }
+        else if ((event->key() == Qt::Key_Asterisk) && (modifiers == Qt::ShiftModifier)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Mul);
+        }
+        else if ((event->key() == Qt::Key_Slash) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Div);
+        }
+        else if (((event->key() == Qt::Key_Enter) || (event->key() == Qt::Key_Return)) 
+            && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Enter);
+        }
+        else if ((event->key() == Qt::Key_Backspace) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Backspace);
+        }
+        else if ((event->key() == Qt::Key_Period) && (modifiers == Qt::NoButton)) {
+            stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Dot);
+        }
+    }
+
+}
+
 void DualModeCalculator::InitialSetGUI()
 {
     mode = StandardMode;
@@ -86,12 +153,11 @@ void DualModeCalculator::InitialSetGUI()
     ui.topStableBarLayout->replaceWidget(ui.labelMode, labelMode);
     ui.labelMode = labelMode;
     labelMode->setObjectName(QStringLiteral("labelMode"));
-    QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
     sizePolicy.setHorizontalStretch(0);
     sizePolicy.setVerticalStretch(0);
-    sizePolicy.setHeightForWidth(labelMode->sizePolicy().hasHeightForWidth());
     labelMode->setSizePolicy(sizePolicy);
-    labelMode->setMinimumSize(QSize(50, 45));
+    labelMode->setFixedSize(120, 48);
     labelMode->setAlignment(Qt::AlignCenter);
 
     UpdateGUI();

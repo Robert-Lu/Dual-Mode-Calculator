@@ -69,6 +69,11 @@ public:
         sizePolicy.setHeightForWidth(labelMode->sizePolicy().hasHeightForWidth());
         labelMode->setSizePolicy(sizePolicy);
         labelMode->setMinimumSize(QSize(120, 60));
+        QFont font;
+        font.setPointSize(18);
+        font.setBold(true);
+        font.setWeight(75);
+        labelMode->setFont(font);
         labelMode->setAlignment(Qt::AlignCenter);
 
         topStableBarLayout->addWidget(labelMode);
@@ -138,6 +143,7 @@ public:
         buttonSwitvhMode->setText(QApplication::translate("DualModeCalculatorClass", "Swi", 0));
         labelMode->setText(QApplication::translate("DualModeCalculatorClass", "Mode", 0));
         buttonDisplayHistory->setText(QApplication::translate("DualModeCalculatorClass", "His", 0));
+        buttonDisplayHistory->setShortcut(QApplication::translate("DualModeCalculatorClass", "H", 0));
         labelNumberDisplay->setText(QApplication::translate("DualModeCalculatorClass", "Number Display ", 0));
     } // retranslateUi
 

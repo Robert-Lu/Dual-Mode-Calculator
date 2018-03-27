@@ -237,7 +237,7 @@ public:
 
         mainGridLayout->addWidget(toolButton_Minus, 4, 3, 1, 1);
 
-        verticalSpacer = new QSpacerItem(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         mainGridLayout->addItem(verticalSpacer, 0, 1, 1, 1);
 
@@ -268,7 +268,7 @@ public:
         toolButton_Backspace->setText(QApplication::translate("StandardControlPanel", "back", 0));
         toolButton_7->setText(QApplication::translate("StandardControlPanel", "7", 0));
         toolButton_Div->setText(QApplication::translate("StandardControlPanel", "/", 0));
-        toolButton_ClearAll->setText(QApplication::translate("StandardControlPanel", "CE", 0));
+        toolButton_ClearAll->setText(QApplication::translate("StandardControlPanel", "CA", 0));
         toolButton_5->setText(QApplication::translate("StandardControlPanel", "5", 0));
         toolButton_4->setText(QApplication::translate("StandardControlPanel", "4", 0));
         toolButton_8->setText(QApplication::translate("StandardControlPanel", "8", 0));

@@ -402,7 +402,7 @@ public:
         toolButton_Or->setText(QApplication::translate("ProgrammerControlPanel", "Or", 0));
         toolButton_Backspace->setText(QApplication::translate("ProgrammerControlPanel", "back", 0));
         toolButton_B->setText(QApplication::translate("ProgrammerControlPanel", "B", 0));
-        toolButton_ClearAll->setText(QApplication::translate("ProgrammerControlPanel", "CE", 0));
+        toolButton_ClearAll->setText(QApplication::translate("ProgrammerControlPanel", "CA", 0));
         toolButton_Clear->setText(QApplication::translate("ProgrammerControlPanel", "C", 0));
         toolButton_Div->setText(QApplication::translate("ProgrammerControlPanel", "/", 0));
         toolButton_C->setText(QApplication::translate("ProgrammerControlPanel", "C", 0));

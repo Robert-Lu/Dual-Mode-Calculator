@@ -144,7 +144,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>CE</string>
+        <string>CA</string>
        </property>
       </widget>
      </item>
@@ -347,6 +347,12 @@
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
       </spacer>
      </item>
