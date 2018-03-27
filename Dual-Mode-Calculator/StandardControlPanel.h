@@ -19,6 +19,7 @@ public:
         Std_Backspace, Std_Plus, Std_Minus, Std_Mul, Std_Div, Std_Sign, Std_Dot, Std_Enter,
         Std_Null
     };
+    void KeyboardActionHandler(StdAction act);
 
 signals:
     void UpdateNumberDisplay(QString);
@@ -34,6 +35,7 @@ private:
 
     void ConfigButtons();
     void ConnectButtonActions();
+
     
     void NumberInputHandler(unsigned int);
     void FloatingPointInputHandler();

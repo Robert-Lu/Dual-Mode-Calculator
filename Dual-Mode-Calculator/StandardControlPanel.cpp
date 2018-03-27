@@ -59,6 +59,8 @@ void StandardControlPanel::ConfigButtons()
         { ui.toolButton_Mul, "mul" },
         { ui.toolButton_Div, "div" },
         { ui.toolButton_Sign, "sign" },
+        { ui.toolButton_Backspace, "backspace" },
+        { ui.toolButton_Enter, "enter" },
     };
 
     for (auto &setting : toolButtonIconSettings)
@@ -66,8 +68,10 @@ void StandardControlPanel::ConfigButtons()
         auto &button = setting.first;
         const auto &icon_name = setting.second;
         button->setIcon(QIcon(":/DualModeCalculator/" + icon_name));
-        button->setIconSize({ 75, 35 });
+        button->setIconSize({ 80, 40 });
     }
+    ui.toolButton_5->setShortcut(QKeySequence("5"));
+
 }
 
 void StandardControlPanel::ConnectButtonActions()
@@ -102,6 +106,38 @@ void StandardControlPanel::ConnectButtonActions()
     connect(ui.toolButton_Clear, &QToolButton::clicked, this, [=]() { ClearOperatorInputHandler(); });
     connect(ui.toolButton_ClearAll, &QToolButton::clicked, this, [=]() { ClearAllOperatorInputHandler(); });
 
+}
+
+void StandardControlPanel::KeyboardActionHandler(StdAction act)
+{
+    switch (act) { 
+    case Std_0: ui.toolButton_0->animateClick(); break;
+    case Std_1: ui.toolButton_1->animateClick(); break;
+    case Std_2: ui.toolButton_2->animateClick(); break;
+    case Std_3: ui.toolButton_3->animateClick(); break;
+    case Std_4: ui.toolButton_4->animateClick(); break;
+    case Std_5: ui.toolButton_5->animateClick(); break;
+    case Std_6: ui.toolButton_6->animateClick(); break;
+    case Std_7: ui.toolButton_7->animateClick(); break;
+    case Std_8: ui.toolButton_8->animateClick(); break;
+    case Std_9: ui.toolButton_9->animateClick(); break;
+    case Std_Percent: ui.toolButton_Percent->animateClick(); break;
+    case Std_Sqrt: ui.toolButton_Sqrt->animateClick(); break;
+    case Std_Sqr: ui.toolButton_Sqr->animateClick(); break;
+    case Std_Rep: ui.toolButton_Rep->animateClick(); break;
+    case Std_ClearAll: ui.toolButton_ClearAll->animateClick(); break;
+    case Std_Clear: ui.toolButton_Clear->animateClick(); break;
+    case Std_Backspace: ui.toolButton_Backspace->animateClick(); break;
+    case Std_Plus: ui.toolButton_Plus->animateClick(); break;
+    case Std_Minus: ui.toolButton_Minus->animateClick(); break;
+    case Std_Mul: ui.toolButton_Mul->animateClick(); break;
+    case Std_Div: ui.toolButton_Div->animateClick(); break;
+    case Std_Sign: ui.toolButton_Sign->animateClick(); break;
+    case Std_Dot: ui.toolButton_Dot->animateClick(); break;
+    case Std_Enter: ui.toolButton_Enter->animateClick(); break;
+    case Std_Null: break;
+    default:;
+    }
 }
 
 void StandardControlPanel::NumberInputHandler(unsigned num)
@@ -210,9 +246,7 @@ void StandardControlPanel::UniaryOperatorInputHandler(const StdAction act)
         default:
             break;
         }
-        show_last = true;
         ExtractDigitsNumber();
-        ConfirmNumber();
     }
 
     to_zeroize = true;
@@ -353,7 +387,10 @@ void StandardControlPanel::BackSpaceOperatorInputHandler()
     if (!floating_dot_enabled)
     {
         if (digit_int > 1)
-            number = (double)((int)number / 10);
+        {
+            number = number / 10;
+            number = trunc(number);
+        }
         else
             number = 0;
         if (digit_int > 0)
