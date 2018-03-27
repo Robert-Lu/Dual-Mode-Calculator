@@ -23,6 +23,7 @@ public:
 
 signals:
     void UpdateNumberDisplay(QString);
+    void UpdateNumberHistory(QString);
 
 private:
     Ui::StandardControlPanel ui;

@@ -11,5 +11,9 @@
         <file alias="rep">Resources/images/rep.png</file>
         <file alias="backspace">Resources/images/backspace.png</file>
         <file alias="enter">Resources/images/enter.png</file>
+        <file alias="dot">Resources/images/dot.png</file>
+        <file alias="dot_disabled">Resources/images/dot_disabled.png</file>
+        <file alias="history">Resources/images/history.png</file>
+        <file alias="switch">Resources/images/switch.png</file>
     </qresource>
 </RCC>

@@ -5,6 +5,7 @@
 #include "QAutoFontSizeLabel.h"
 #include "StandardControlPanel.h"
 #include "ProgrammerControlPanel.h"
+#include "HistoryWidget.h"
 
 class DualModeCalculator : public QMainWindow
 {
@@ -33,10 +34,12 @@ private:
     Mode mode;
     bool show_history;
 
-    // test
     QLabel *test_Std, *test_Pro, *test_His;
 
     QAutoFontSizeLabel *labelMode, *labelNumberDisplay;
     StandardControlPanel *stdControlPanel;
     ProgrammerControlPanel *proControlPanel;
+    HistoryWidget *hisView;
+
+    std::vector<QString> history;
 };

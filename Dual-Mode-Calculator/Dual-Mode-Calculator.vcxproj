@@ -38,7 +38,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <SubSystem Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Console</SubSystem>
+      <SubSystem Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Windows</SubSystem>
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateDebugInformation>
@@ -130,6 +130,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="HistoryWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProgrammerControlPanel.cpp" />
     <ClCompile Include="QAutoFontSizeLabel.cpp" />
@@ -146,10 +147,12 @@
     <QtMoc Include="StandardControlPanel.h" />
     <QtMoc Include="QAutoFontSizeLabel.h" />
     <QtMoc Include="DualModeCalculator.h" />
+    <QtMoc Include="HistoryWidget.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DualModeCalculator.ui" />
+    <QtUic Include="HistoryWidget.ui" />
     <QtUic Include="ProgrammerControlPanel.ui" />
     <QtUic Include="StandardControlPanel.ui" />
   </ItemGroup>

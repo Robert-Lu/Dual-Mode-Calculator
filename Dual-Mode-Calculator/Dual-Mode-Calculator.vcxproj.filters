@@ -20,6 +20,9 @@
     <ClCompile Include="ProgrammerControlPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HistoryWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -70,6 +73,9 @@
     <QtMoc Include="ProgrammerControlPanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="HistoryWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DualModeCalculator.ui">
@@ -79,6 +85,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ProgrammerControlPanel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="HistoryWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

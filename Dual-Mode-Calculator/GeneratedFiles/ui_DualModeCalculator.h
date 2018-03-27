@@ -44,8 +44,8 @@ public:
     {
         if (DualModeCalculatorClass->objectName().isEmpty())
             DualModeCalculatorClass->setObjectName(QStringLiteral("DualModeCalculatorClass"));
-        DualModeCalculatorClass->resize(450, 700);
-        DualModeCalculatorClass->setMinimumSize(QSize(450, 700));
+        DualModeCalculatorClass->resize(600, 900);
+        DualModeCalculatorClass->setMinimumSize(QSize(600, 900));
         centralWidget = new QWidget(DualModeCalculatorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_3 = new QVBoxLayout(centralWidget);
@@ -143,7 +143,6 @@ public:
         buttonSwitvhMode->setText(QApplication::translate("DualModeCalculatorClass", "Swi", 0));
         labelMode->setText(QApplication::translate("DualModeCalculatorClass", "Mode", 0));
         buttonDisplayHistory->setText(QApplication::translate("DualModeCalculatorClass", "His", 0));
-        buttonDisplayHistory->setShortcut(QApplication::translate("DualModeCalculatorClass", "H", 0));
         labelNumberDisplay->setText(QApplication::translate("DualModeCalculatorClass", "Number Display ", 0));
     } // retranslateUi
 

@@ -16,7 +16,7 @@ DualModeCalculator::DualModeCalculator(QWidget *parent)
         "   background: #C0C0BF;\n"
         "}\n"
         "QToolButton {\n"
-        "   font: 32px bond;\n"
+        "   font: 24px bond;\n"
         "   border-style: none;\n"
         "   border-radius: 4px;\n"
         "   background-color: #E0E0E0;\n"
@@ -28,10 +28,14 @@ DualModeCalculator::DualModeCalculator(QWidget *parent)
         "   background-color: #A0A0A0;\n"
         "}\n"
         "QToolButton:disabled {\n"
-        "   color: gray;\n"
+        "   color: #909090;\n"
         "}\n"
         "QToolButton[number-button=\"true\"] {\n"
+        "   font: 32px bond;\n"
         "   background-color: white; \n"
+        "}\n"
+        "QToolButton[icon-only=\"true\"] {\n"
+        "   background-color: #00000000; \n"
         "}\n"
         "QToolButton[number-button=\"true\"]:hover {\n"
         "   background-color: #B0B0B0; \n"
@@ -40,12 +44,9 @@ DualModeCalculator::DualModeCalculator(QWidget *parent)
         "   background-color: #A0A0A0; \n"
         "}\n"
         "QToolButton[number-button=\"true\"]:disabled {\n"
-        "   color: gray;\n"
+        "   color: #909090;\n"
         "}\n"
     );
-
-    qDebug() << "after init" << ui.labelNumberDisplay->size();;
-
 }
 
 
@@ -118,6 +119,62 @@ void DualModeCalculator::keyPressEvent(QKeyEvent* event)
             stdControlPanel->KeyboardActionHandler(StandardControlPanel::Std_Dot);
         }
     }
+    else
+    {
+        if ((event->key() == Qt::Key_0) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_0);
+        }
+        else if ((event->key() == Qt::Key_1) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_1);
+        }
+        else if ((event->key() == Qt::Key_1) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_1);
+        }
+        else if ((event->key() == Qt::Key_2) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_2);
+        }
+        else if ((event->key() == Qt::Key_3) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_3);
+        }
+        else if ((event->key() == Qt::Key_4) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_4);
+        }
+        else if ((event->key() == Qt::Key_5) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_5);
+        }
+        else if ((event->key() == Qt::Key_6) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_6);
+        }
+        else if ((event->key() == Qt::Key_7) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_7);
+        }
+        else if ((event->key() == Qt::Key_8) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_8);
+        }
+        else if ((event->key() == Qt::Key_9) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_9);
+        }
+        else if ((event->key() == Qt::Key_Plus) && (modifiers == Qt::ShiftModifier)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Plus);
+        }
+        else if ((event->key() == Qt::Key_Minus) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Minus);
+        }
+        else if ((event->key() == Qt::Key_Asterisk) && (modifiers == Qt::ShiftModifier)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Mul);
+        }
+        else if ((event->key() == Qt::Key_Slash) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Div);
+        }
+        else if (((event->key() == Qt::Key_Enter) || (event->key() == Qt::Key_Return))
+            && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Enter);
+        }
+        else if ((event->key() == Qt::Key_Backspace) && (modifiers == Qt::NoButton)) {
+            proControlPanel->KeyboardActionHandler(ProgrammerControlPanel::Pro_Backspace);
+        }
+
+    }
 
 }
 
@@ -129,6 +186,7 @@ void DualModeCalculator::InitialSetGUI()
     connect(ui.buttonSwitvhMode, &QToolButton::clicked, this,
         [=]() {
         mode = (mode == StandardMode) ? ProgrammerMode : StandardMode;
+        InitialzeComponents();
         UpdateGUI();
     }
     );
@@ -143,6 +201,7 @@ void DualModeCalculator::InitialSetGUI()
     test_His = new QLabel(tr("History Display"));
     labelMode = new QAutoFontSizeLabel();
     labelNumberDisplay = new QAutoFontSizeLabel();
+    hisView = new HistoryWidget;
     stdControlPanel = new StandardControlPanel;
     proControlPanel = new ProgrammerControlPanel;
 
@@ -160,6 +219,13 @@ void DualModeCalculator::InitialSetGUI()
     labelMode->setFixedSize(120, 48);
     labelMode->setAlignment(Qt::AlignCenter);
 
+    ui.buttonDisplayHistory->setIcon(QIcon(":/DualModeCalculator/history"));
+    ui.buttonDisplayHistory->setIconSize(QSize(45, 45));
+    ui.buttonDisplayHistory->setProperty("icon-only", true);
+
+    ui.buttonSwitvhMode->setIcon(QIcon(":/DualModeCalculator/switch"));
+    ui.buttonSwitvhMode->setIconSize(QSize(45, 45));
+    ui.buttonSwitvhMode->setProperty("icon-only", true);
     UpdateGUI();
 }
 
@@ -170,12 +236,25 @@ void DualModeCalculator::ConnectActions()
         ui.labelNumberDisplay->setText(num);
         UpdateGUI();
     });
+    connect(proControlPanel, &ProgrammerControlPanel::UpdateNumberDisplay, this, [=](QString num)
+    {
+        ui.labelNumberDisplay->setText(num);
+        UpdateGUI();
+    });
+    connect(stdControlPanel, &StandardControlPanel::UpdateNumberHistory, this, [=](QString num)
+    {
+        history.push_back(num);
+    });
+    connect(proControlPanel, &ProgrammerControlPanel::UpdateNumberHistory, this, [=](QString num)
+    {
+        history.push_back(num);
+    });
 }
 
 void DualModeCalculator::InitialzeComponents()
 {
+    proControlPanel->init();
     stdControlPanel->init();
-    //proControlPanel->init();
 }
 
 void DualModeCalculator::UpdateGUI()
@@ -186,15 +265,16 @@ void DualModeCalculator::UpdateGUI()
         ui.mainWidget->removeItem(child);
     }
     test_His->setVisible(false);
+    hisView->setVisible(false);
     stdControlPanel->setVisible(false);
     proControlPanel->setVisible(false);
-    //ui.labelNumberDisplay->setFrameStyle(QLabel::Raised | QLabel::Box);
 
     // switch main widget.
     if (show_history)
     {
-        ui.mainWidget->addWidget(test_His);
-        test_His->setVisible(true);
+        ui.mainWidget->addWidget(hisView);
+        hisView->setVisible(true);
+        hisView->init(history);
     }
     else
     {

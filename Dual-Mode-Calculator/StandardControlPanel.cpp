@@ -61,6 +61,7 @@ void StandardControlPanel::ConfigButtons()
         { ui.toolButton_Sign, "sign" },
         { ui.toolButton_Backspace, "backspace" },
         { ui.toolButton_Enter, "enter" },
+        { ui.toolButton_Dot, "dot" },
     };
 
     for (auto &setting : toolButtonIconSettings)
@@ -70,8 +71,6 @@ void StandardControlPanel::ConfigButtons()
         button->setIcon(QIcon(":/DualModeCalculator/" + icon_name));
         button->setIconSize({ 80, 40 });
     }
-    ui.toolButton_5->setShortcut(QKeySequence("5"));
-
 }
 
 void StandardControlPanel::ConnectButtonActions()
@@ -149,6 +148,7 @@ void StandardControlPanel::NumberInputHandler(unsigned num)
     if (in_result)
     {
         stocked_action = Std_Null;
+        Zeroize();
     }
 
     if (isPrecisionLimitExceed())
@@ -207,23 +207,25 @@ void StandardControlPanel::UniaryOperatorInputHandler(const StdAction act)
         switch (act)
         {
         case Std_Percent:
-            last_number /= 100;
+            ConfirmNumber(last_number / 100);
             break;
         case Std_Sqrt:
-            last_number = std::sqrt(last_number);
+            ConfirmNumber(sqrt(last_number));
             break;
         case Std_Sqr:
-            last_number = std::pow(last_number, 2.0);
+            ConfirmNumber(pow(last_number, 2.0));
             break;
         case Std_Rep:
             if (last_number == 0.0)
-                ;//TODO
-            last_number = 1 / last_number;
+            {
+                emit UpdateNumberDisplay(QStringLiteral("´íÎó£º·ÖÄ¸ÎªÁã"));
+                return;
+            }
+            ConfirmNumber(1 / last_number);
             break;
         default:
             break;
         }
-
     }
     else
     {
@@ -240,7 +242,10 @@ void StandardControlPanel::UniaryOperatorInputHandler(const StdAction act)
             break;
         case Std_Rep:
             if (number == 0.0)
-                ;//TODO
+            {
+                emit UpdateNumberDisplay(QStringLiteral("´íÎó£º·ÖÄ¸ÎªÁã"));
+                return;
+            }
             number = 1 / number;
             break;
         default:
@@ -280,7 +285,10 @@ void StandardControlPanel::BinaryOperatorInputHandler(StdAction act)
                 break;
             case Std_Div:
                 if (number == 0)
-                    ; //TODO
+                {
+                    emit UpdateNumberDisplay(QStringLiteral("´íÎó£º³ıÊıÎªÁã"));
+                    return;
+                }
                 ConfirmNumber(last_number / number);
                 break;
             default:
@@ -353,7 +361,10 @@ void StandardControlPanel::EnterOperatorInputHandler()
             break;
         case Std_Div:
             if (number == 0)
-                ; //TODO
+            {
+                emit UpdateNumberDisplay(QStringLiteral("´íÎó£º³ıÊıÎªÁã"));
+                return;
+            }
             ConfirmNumber(last_number / number);
             break;
         default:
@@ -370,6 +381,7 @@ void StandardControlPanel::EnterOperatorInputHandler()
     qDebug() << "last_num = " << last_number;
     qDebug() << "Text = " << GenerateNumberDisplay();
     emit UpdateNumberDisplay(GenerateNumberDisplay());
+    emit UpdateNumberHistory(GenerateNumberDisplay());
 }
 
 void StandardControlPanel::ClearOperatorInputHandler()
