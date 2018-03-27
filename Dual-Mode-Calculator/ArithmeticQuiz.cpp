@@ -40,6 +40,7 @@ void ArithmeticQuiz::count_down(int secs)
 
 void ArithmeticQuiz::end_game()
 {
+    timer.stop();
     display = QString("Good job! You've earned %1 points!").arg(score);
     emit UpdateDisplay(display);
     state = State::End;
@@ -84,6 +85,16 @@ void ArithmeticQuiz::generate_problem()
 
     state = State::Problem;
     emit UpdateDisplay(display);
+    
+    // set timeout
+    if (score == 0)
+        // starting a new game
+        timer.singleShot(5000, this, &ArithmeticQuiz::end_game);
+    else
+    if (score < 50)
+        timer.singleShot(timer.remainingTime() + 5000 - score * 50, this, &ArithmeticQuiz::end_game);
+    else
+        timer.singleShot(timer.remainingTime() + 2500, this, &ArithmeticQuiz::end_game);
 }
 
 // handler
@@ -136,7 +147,7 @@ void number_input(unsigned num)
     else
     {
         // wrong answer
-          QTimer::singleShot(3000, this, &ArithmeticQuiz::end_game);
+        QTimer::singleShot(3000, this, &ArithmeticQuiz::end_game);
     }
 
     display += '0' + num;
