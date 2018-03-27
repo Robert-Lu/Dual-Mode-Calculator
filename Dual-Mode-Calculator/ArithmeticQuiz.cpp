@@ -32,6 +32,8 @@ void ArithmeticQuiz::count_down(int secs)
     else
     {
         state = State::Countdown;
+        display = QString("%1").arg(secs);
+        emit UpdateDisplay(display);
         QTimer::singleShot(1000, this, std::bind(&ArithmeticQuiz::count_down, this, secs - 1));
     }
 }
